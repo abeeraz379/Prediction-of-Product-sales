@@ -50,4 +50,60 @@ is the most influential numeric predictor of sales.
 notably lower and more compressed sales figures.
 
   ---
-  
+  ## Preprocessing
+  ---
+
+A `ColumnTransformer` was built to handle three types of features simultaneously, ensuring all data was clean and properly formatted before being fed into any model.
+
+**Numeric features** were first passed through a `SimpleImputer` using the mean strategy to fill in any missing values, then scaled using `StandardScaler` to standardize all numeric columns to the same scale, preventing any single feature from dominating the model due to its magnitude.
+
+**Ordinal features** were processed through a `SimpleImputer` to handle missing values, followed by an `OrdinalEncoder` to convert ordered categorical values into meaningful integers that preserve their natural ranking, and finally a `StandardScaler` to bring them onto the same scale as the numeric features.
+
+**Categorical features** were handled with a `SimpleImputer` to address any missing values, then transformed using `OneHotEncoder` to convert nominal categorical variables into binary columns, allowing the model to interpret them without assuming any order or ranking between categories.
+
+This entire preprocessing pipeline was structured using scikit-learn's `ColumnTransformer`, which applies each set of transformations to the appropriate columns in parallel, ensuring a clean, consistent, and reproducible preprocessing workflow across both training and test data.
+
+ 
+  ###  Recommended Model: Tuned Random Forest Regressor
+
+After evaluating all three models, I recommend the **Tuned Random Forest Regressor** as the best model to move forward with.
+
+---
+
+### Justification
+
+Looking at the results across all three models:
+
+- **Linear Regression** had consistent training and test scores (R² ≈ 0.56), meaning it is neither overfitting nor underfitting — but it simply doesn't explain the data well enough, leaving nearly 44% of the variance unexplained.
+
+- **Untuned Random Forest** performed exceptionally well on training data (R² = 0.939) but collapsed on test data (R² = 0.561), which is a clear sign of severe overfitting. It essentially memorized the training data and failed to generalize.
+
+- **Tuned Random Forest** struck the best balance — it reduced the overfitting seen in the untuned version while achieving a better test R² (0.592) than both Linear Regression and the untuned Random Forest. The gap between training and test scores is much more reasonable, making it the most generalizable and reliable model of the three.
+
+---
+
+###  Model Performance for Non-Technical Stakeholders
+
+**R-Squared (R²):**
+
+Our recommended model — the Tuned Random Forest — has an R² of **0.592 on test data**. Think of R² as a score that tells us how well our model explains what drives the outcome we're predicting. A score of 0.592 means that our model can explain about **59% of the variation** in the target variable. In simple terms, if you imagine 100 different cases in our data, our model correctly accounts for the patterns behind roughly 59 of them. While there is still room for improvement, this is a meaningful result and gives us a solid foundation to build on.
+
+---
+
+**Selected Metric: MAE (Mean Absolute Error)**
+
+I chose **MAE** to communicate the model's error to stakeholders because it is the most straightforward and intuitive metric — it simply tells us, on average, how far off our predictions are from the actual values, in the same units as what we're predicting.
+
+Our Tuned Random Forest has a test MAE of **760.35**, meaning that on average, our model's predictions are off by about **760 units** from the real value. Unlike RMSE, MAE doesn't exaggerate the impact of large errors, which makes it easier to interpret and communicate honestly to a non-technical audience.
+
+---
+
+###  Overfitting / Underfitting Analysis
+
+| Model | Train R² | Test R² | Gap | Assessment |
+|---|---|---|---|---|
+| Linear Regression | 0.564 | 0.562 | 0.002 | Underfit — too simple |
+| Untuned Random Forest | 0.939 | 0.561 | 0.378 | Severely overfit |
+| **Tuned Random Forest** | **0.703** | **0.592** | **0.111** | **Mild overfit — best balance** |
+
+The Tuned Random Forest shows a training R² of 0.703 versus a test R² of 0.592, a gap of about **0.111**. This tells us the model is **slightly overfit** — it performs somewhat better on data it has seen than on new data — but this gap is significantly smaller than the untuned version's gap of 0.378. The tuning process (via GridSearchCV) successfully reined in the overfitting by constraining the model's complexity, making it much more trustworthy when applied to real-world, unseen data.
