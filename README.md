@@ -88,8 +88,14 @@ Looking at the results across all three models:
 #### Linear regression without intercept
 <img width="604" height="470" alt="lr" src="https://github.com/user-attachments/assets/268a478e-bfd2-4082-9c7e-776ea6ea8ca0" />
 
+##### Results 
+<img width="756" height="323" alt="image" src="https://github.com/user-attachments/assets/9dad2c59-2776-4e6d-b551-d18d9cff5900" />
+
 #### random forest
 <img width="583" height="547" alt="top5" src="https://github.com/user-attachments/assets/f490229d-ac8b-40d1-a40f-0229d7b4457e" />
+
+##### Results 
+<img width="852" height="340" alt="image" src="https://github.com/user-attachments/assets/b4b38f00-bf23-4eee-baf0-26b6116c179d" />
 
 ###  Model Performance for Non-Technical Stakeholders
 
