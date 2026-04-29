@@ -81,6 +81,15 @@ Looking at the results across all three models:
 - **Tuned Random Forest** struck the best balance — it reduced the overfitting seen in the untuned version while achieving a better test R² (0.592) than both Linear Regression and the untuned Random Forest. The gap between training and test scores is much more reasonable, making it the most generalizable and reliable model of the three.
 
 ---
+### Model Insights 
+#### Linear regression
+<img width="623" height="547" alt="top3" src="https://github.com/user-attachments/assets/4c49f56b-fab3-4a10-81dd-7016d53ef539" />
+
+#### Linear regression without intercept
+<img width="604" height="470" alt="lr" src="https://github.com/user-attachments/assets/268a478e-bfd2-4082-9c7e-776ea6ea8ca0" />
+
+#### random forest
+<img width="583" height="547" alt="top5" src="https://github.com/user-attachments/assets/f490229d-ac8b-40d1-a40f-0229d7b4457e" />
 
 ###  Model Performance for Non-Technical Stakeholders
 
